@@ -1,0 +1,82 @@
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Available tables in the database:
+CCATEGORY
+CERTIFICATE
+COURSE
+DEPT
+EMPLOYEE
+---------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
+Running: select name, salary from EMPLOYEE where salary > 50000
+LogicalProject(NAME=[$1], SALARY=[$9])
+  LogicalFilter(condition=[>($9, 50000)])
+    LogicalTableScan(table=[[company, EMPLOYEE]])
+
+Fred 100000.0
+Eric 90000.0
+John 65000.0
+Alice 85000.0
+Jane 80000.0
+Bob 55000.0
+Tom 60000.0
+Chris 70000.0
+Munro 70000.0
+Martha 85000.0
+Jennifer 65000.0
+Ken 65000.0
+Gerry 65000.0
+Mueller 70000.0
+Angela 70000.0
+Don 70000.0
+Stephen 80000.0
+Lester 55000.0
+John 60000.0
+---------------------------------------------------------------------------------------
+select e.name, d.name from EMPLOYEE e, DEPT d where e.deptno = d.deptno AND (e.deptno=10 OR e.deptno=20)
+LogicalProject(NAME=[$1], NAME0=[$11])
+  LogicalFilter(condition=[OR(=($2, 10), =($2, 20))])
+    LogicalJoin(condition=[=($2, $10)], joinType=[inner])
+      LogicalTableScan(table=[[company, EMPLOYEE]])
+      LogicalTableScan(table=[[company, DEPT]])
+
+Eric Marketing
+Wilma Marketing
+Joyce Sales
+Bob Sales
+Tom Sales
+Chris Marketing
+Don Sales
+Stephen Marketing
+John Marketing
+---------------------------------------------------------------------------------------
+SELECT e.NAME, c.TITLE, ce.COMPLETIONDATE FROM EMPLOYEE e, COURSE c, CERTIFICATE ce WHERE e.EMPID = ce.EMPID and ce.COURSEID = c.COURSEID 
+LogicalProject(NAME=[$1], TITLE=[$14], COMPLETIONDATE=[$12])
+  LogicalFilter(condition=[=($11, $13)])
+    LogicalFilter(condition=[=($0, $10)])
+      LogicalJoin(condition=[true], joinType=[inner])
+        LogicalTableScan(table=[[company, EMPLOYEE]])
+        LogicalJoin(condition=[true], joinType=[inner])
+          LogicalTableScan(table=[[company, CERTIFICATE]])
+          LogicalTableScan(table=[[company, COURSE]])
+
+Joyce Java 2016-10-10
+Gerry Java 2017-03-01
+Lester English 2015-10-01
+Bob Big Data 2016-10-10
+Munro Big Data 2016-10-10
+Pierre Big Data 2015-10-01
+Charles Big Data 2015-10-01
+Bob C 2016-10-10
+Munro C 2017-03-01
+Charles C 2017-03-01
+Lester Investment 2014-08-01
+John Investment 2014-08-01
+Bob Data Science 2016-10-10
+Munro Data Science 2017-03-01
+Ken Data Science 2017-03-01
+Gerry Data Science 2017-03-01
+Charles Data Science 2015-10-01
+John Data Science 2014-08-01
+John Public Speaking 2014-08-01
